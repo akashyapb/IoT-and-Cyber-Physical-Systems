@@ -1,0 +1,60 @@
+//North-South LEDs
+#define r_ns 2
+#define y_ns 3
+#define g_ns 4
+
+//East-West LEDs
+#define r_ew 5
+#define y_ew 6
+#define g_ew 7
+
+//Definition of running speed
+#define time_base 500
+
+void setup()
+{
+  //Initializing all LEDs to be OUTPUT
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+}
+
+void ChangeLedValue(byte number)
+{
+  digitalWrite(r_ns, bitRead(number, 5));
+  digitalWrite(y_ns, bitRead(number, 4));
+  digitalWrite(g_ns, bitRead(number, 3));
+  digitalWrite(r_ew, bitRead(number, 2));
+  digitalWrite(y_ew, bitRead(number, 1));
+  digitalWrite(g_ew, bitRead(number, 0));
+}
+
+void LightSequence()
+{
+beginning:
+  ChangeLedValue(B001100);
+  delay(time_base * 10);
+  
+  ChangeLedValue(B010100);
+  delay(time_base * 1);
+  
+  ChangeLedValue(B100100);
+  delay(time_base * 1);
+  
+  ChangeLedValue(B100001);
+  delay(time_base * 5);
+  
+  ChangeLedValue(B100010);
+  delay(time_base * 1);
+  
+  ChangeLedValue(B100100);
+  delay(time_base * 1);
+}
+
+void loop()
+{
+  LightSequence()
+}
